@@ -4,12 +4,47 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.js$/,
+                exclude: /(node_moduless)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env',
+                        ]
+                    }
+                }
+            },
+            {
                 test: /\.html$/,
                 use: [
                     {
                         loader: 'html-loader',
                         options: { minimize: false, }
                     }
+                ],
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            publicPath: 'img',
+                            outputPath: 'img'
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    // Creates `style` nodes from JS strings
+                    "style-loader",
+                    // Translates CSS into CommonJS
+                    "css-loader",
+                    // Compiles Sass to CSS
+                    "sass-loader",
                 ],
             },
         ],
